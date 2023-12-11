@@ -1,0 +1,32 @@
+<head>
+    <title>Car</title>
+    <script src="./car.js"></script>
+    <style>
+        .car{
+            background-color: red;
+            width: 100px;
+            height: 33px;
+        }
+        .sprite{
+            position: absolute;
+            left:10px;
+            top:100px;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="move()">MOVE</button>
+    <div id="car" class="sprite car">car</div>
+</body>
+<script>
+    let c1 = new Car();
+    function move(){
+        c1.iterate();
+        car.style.left = c1.position + "px";
+    }
+    // function cycle(){
+    //     move()
+    //     setTimeout(cycle, 250)
+    // }
+    // cycle();
+</script>
