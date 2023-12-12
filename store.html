@@ -22,8 +22,9 @@
         Cart Item:
         <table>
             <tbody id="lineItemList">
-                <tr><th>QTY</th><th>DESCRIPTION</th><th>PRICE</th><th>EXT</th></tr>
-                <tr class="template lineItem">
+                <tr><th>&nbsp;</th><th>QTY</th><th>DESCRIPTION</th><th>PRICE</th><th>EXT</th></tr>
+                <tr class="template lineItem" data-id="0">
+                    <td><button onclick="deleteItem(this)">X</button></td>
                     <td><input class="qty" value="0" type="number" onchange="qtyChange(this)"></td>
                     <td class="desc">desc</td>
                     <td>$<span class="price">0.00</span></td>
@@ -31,7 +32,7 @@
                 </tr>
             </tbody>
             <tfoot>
-                <tr><th>TOTAL</th><th>-</th><th>-</th><th>$<span id="cartTotal">0.00</span></th></tr>
+                <tr><th>&nbsp;</th><th>TOTAL</th><th>-</th><th>-</th><th>$<span id="cartTotal">0.00</span></th></tr>
             </tfoot>
         </table>
     </aside>
@@ -40,6 +41,27 @@
     const template = document.querySelector(".card.product.template");
     const templateLineItem = document.querySelector(".lineItem.template");
 
+    function deleteItem(buttonElement){
+        const tr = buttonElement.closest("tr");
+        const index = tr.dataset.id;
+        const item = store.cart.itemList[index];
+        store.cart.itemList.splice(index, 1) //remove from list
+        //UPDATE INDEXES AFTER THE REOVED ITEM
+        let reached = false
+        const parent = tr.parentElement;
+        const rows = parent.children;
+        for (const e of rows) {
+            if(reached){
+                tr.dataset.id = Number(tr.dataset.id) - 1;
+            }
+            if(e == tr){
+                reached = true;
+            }
+        }
+        tr.remove() //remove from html
+        cartTotal.innerHTML = store.getTotal().toFixed(2) //update toal
+
+    }
     function qtyChange(inputElement){
         const tr = inputElement.closest("tr");
         const index = tr.dataset.id;
