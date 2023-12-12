@@ -15,3 +15,7 @@ body{
 .card.product.template{
     display: none;
 }
+
+.lineItem.template{
+    display: none;
+}

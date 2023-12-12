@@ -57,6 +57,7 @@ class Order { //CART IS AN INCOMPLETE ORDER
 const store = new Store([
     new Product("paper", 5.00, "paper.webp"),
     new Product("pencil", 1.00, "pencil.webp"),
+    new Product("paperclip", 0.50, "paperclip.webp"),
 ]);
 
 store.show()

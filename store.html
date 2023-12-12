@@ -15,24 +15,47 @@
             <div class="name">Example Product</div>
             <div class="price">$0.00</div>
             <img class="image" src="./pencil.webp">
-            <button class="addToCart">Add to Cart</button>
-        </div>        
-    </main>
+            <button class="addToCart" onclick="addToCart(this)">Add to Cart</button>
+        </div>
+    </main>    
+    <aside id="cart" class="card">
+        Cart Item:
+        <table id="lineItemList">
+            <tr><th>QTY</th><th>DESCRIPTION</th><th>PRICE</th><th>EXT</th></tr>
+            <tr class="template lineItem">
+                <td class="qty">0</td>
+                <td class="desc">desc</td>
+                <td class="price">$0.00</td>
+                <td class="ext">$0.00</td>
+            </tr>
+        </table>
+    </aside>
 </body>
 <script>
     const template = document.querySelector(".card.product.template");
+    const templateLineItem = document.querySelector(".lineItem.template");
 
-    function showProduct(product){
+    function addToCart(buttonElement){
+        const index = buttonElement.closest(".card").dataset.id;
+        const product = store.productList[index];
+        const copy = templateLineItem.cloneNode(true);
+        copy.classList.remove("template");
+        copy.querySelector(".desc").innerHTML = product.name;
+        copy.querySelector(".qty").innerHTML = 1;
+        copy.querySelector(".price").innerHTML = product.price;
+        copy.querySelector(".ext").innerHTML = product.price;
+        lineItemList.appendChild(copy)
+    }
+
+    function showProduct(product, index){
         const copy = template.cloneNode(true);
+        copy.dataset.id = index; //SET data-id="index"
         copy.classList.remove("template");
         copy.querySelector(".name").innerHTML = product.name;
         copy.querySelector(".price").innerHTML = "$" + product.price;
         copy.querySelector(".image").src = product.image;
         productList.appendChild(copy);
     }
-    store.productList.forEach((p, i)=> {
-            // console.log(i, p.show())
-            showProduct(p)
-        });
+    store.productList.forEach(showProduct);
 </script>
 </html>
