@@ -44,6 +44,10 @@ class LineItem {
     }
 }
 
+function sum(numberList){
+    return numberList.reduce((acc, cv) => acc + cv, 0); //SUM TOTAL
+}
+
 class Order { //CART IS AN INCOMPLETE ORDER
     constructor() {
         this.customer = new Customer();
@@ -58,7 +62,7 @@ class Order { //CART IS AN INCOMPLETE ORDER
     }
     getTotal(){
         const extenedPrices = this.itemList.map(item=>item.getExtendedPrice());
-        return extenedPrices.reduce((acc, cv) => acc + cv, 0); //SUM TOTAL    
+        return sum(extenedPrices)    
     }
 }
 
