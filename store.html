@@ -13,21 +13,26 @@
     <main id="productList">
         <div class="card product template" data-id="0">
             <div class="name">Example Product</div>
-            <div class="price">$0.00</div>
+            <div>$<span class="price">0.00</span></div>
             <img class="image" src="./pencil.webp">
             <button class="addToCart" onclick="addToCart(this)">Add to Cart</button>
         </div>
     </main>    
     <aside id="cart" class="card">
         Cart Item:
-        <table id="lineItemList">
-            <tr><th>QTY</th><th>DESCRIPTION</th><th>PRICE</th><th>EXT</th></tr>
-            <tr class="template lineItem">
-                <td><input class="qty" value="0" type="number" onchange="qtyChange(this)"></td>
-                <td class="desc">desc</td>
-                <td class="price">$0.00</td>
-                <td class="ext">$0.00</td>
-            </tr>
+        <table>
+            <tbody id="lineItemList">
+                <tr><th>QTY</th><th>DESCRIPTION</th><th>PRICE</th><th>EXT</th></tr>
+                <tr class="template lineItem">
+                    <td><input class="qty" value="0" type="number" onchange="qtyChange(this)"></td>
+                    <td class="desc">desc</td>
+                    <td>$<span class="price">0.00</span></td>
+                    <td>$<span class="ext">0.00</span></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr><th>TOTAL</th><th>-</th><th>-</th><th>$<span id="cartTotal">0.00</span></th></tr>
+            </tfoot>
         </table>
     </aside>
 </body>
@@ -39,21 +44,30 @@
         const tr = inputElement.closest("tr");
         const index = tr.dataset.id;
         const item = store.cart.itemList[index];
+
+        // 1. UPDATE DATA BASED ON UI INPUT
         item.quantity = Number(inputElement.value);
-        tr.querySelector(".ext").innerHTML = item.quantity * item.product.price; 
+
+        // 2. UPDATE UI DISPLAY BASED ON CHANGES IN THE DATA 
+        tr.querySelector(".ext").innerHTML = item.getExtendedPrice().toFixed(2); 
+        cartTotal.innerHTML = store.getTotal().toFixed(2)
     }
     function addToCart(buttonElement){
         const index = buttonElement.closest(".card").dataset.id;
         const product = store.productList[index];
         itemIndex = store.add(index, 1)
+
+        cartTotal.innerHTML = store.getTotal().toFixed(2)
+
         const copy = templateLineItem.cloneNode(true);
         copy.dataset.id = itemIndex;
         copy.classList.remove("template");
         copy.querySelector(".desc").innerHTML = product.name;
         copy.querySelector(".qty").value = 1;
-        copy.querySelector(".price").innerHTML = product.price;
-        copy.querySelector(".ext").innerHTML = product.price;
+        copy.querySelector(".price").innerHTML = product.price.toFixed(2);
+        copy.querySelector(".ext").innerHTML = product.price.toFixed(2);
         lineItemList.appendChild(copy)
+
     }
 
     function showProduct(product, index){
@@ -61,7 +75,7 @@
         copy.dataset.id = index; //SET data-id="index"
         copy.classList.remove("template");
         copy.querySelector(".name").innerHTML = product.name;
-        copy.querySelector(".price").innerHTML = "$" + product.price;
+        copy.querySelector(".price").innerHTML = product.price.toFixed(2);
         copy.querySelector(".image").src = product.image;
         productList.appendChild(copy);
     }

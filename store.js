@@ -13,6 +13,9 @@ class Store {
         this.cart.itemList.push(new LineItem(this.productList[i], quantity));
         return this.cart.itemList.length - 1;
     }
+    getTotal(){
+        return this.cart.getTotal()
+    }
 }
 
 class Product {
@@ -36,6 +39,9 @@ class LineItem {
         this.product = product;
         this.quantity = quantity;
     }
+    getExtendedPrice(){
+        return this.quantity * this.product.price;
+    }
 }
 
 class Order { //CART IS AN INCOMPLETE ORDER
@@ -44,13 +50,15 @@ class Order { //CART IS AN INCOMPLETE ORDER
         this.itemList = [];
     }
     show() {
-        let total = 0;
         this.itemList.forEach(item => {
-            let ext = item.quantity * item.product.price;
-            total += ext;
+            let ext = item.getExtendedPrice();
             console.log(item.quantity, item.product.show(), ext)
         });
-        console.log(`TOTAL: ${total}`)
+        console.log(`TOTAL: ${this.getTotal()}`)
+    }
+    getTotal(){
+        const extenedPrices = this.itemList.map(item=>item.getExtendedPrice());
+        return extenedPrices.reduce((acc, cv) => acc + cv, 0); //SUM TOTAL    
     }
 }
 
