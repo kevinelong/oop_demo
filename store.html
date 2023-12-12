@@ -23,7 +23,7 @@
         <table id="lineItemList">
             <tr><th>QTY</th><th>DESCRIPTION</th><th>PRICE</th><th>EXT</th></tr>
             <tr class="template lineItem">
-                <td class="qty">0</td>
+                <td><input class="qty" value="0" type="number" onchange="qtyChange(this)"></td>
                 <td class="desc">desc</td>
                 <td class="price">$0.00</td>
                 <td class="ext">$0.00</td>
@@ -35,13 +35,22 @@
     const template = document.querySelector(".card.product.template");
     const templateLineItem = document.querySelector(".lineItem.template");
 
+    function qtyChange(inputElement){
+        const tr = inputElement.closest("tr");
+        const index = tr.dataset.id;
+        const item = store.cart.itemList[index];
+        item.quantity = Number(inputElement.value);
+        tr.querySelector(".ext").innerHTML = item.quantity * item.product.price; 
+    }
     function addToCart(buttonElement){
         const index = buttonElement.closest(".card").dataset.id;
         const product = store.productList[index];
+        itemIndex = store.add(index, 1)
         const copy = templateLineItem.cloneNode(true);
+        copy.dataset.id = itemIndex;
         copy.classList.remove("template");
         copy.querySelector(".desc").innerHTML = product.name;
-        copy.querySelector(".qty").innerHTML = 1;
+        copy.querySelector(".qty").value = 1;
         copy.querySelector(".price").innerHTML = product.price;
         copy.querySelector(".ext").innerHTML = product.price;
         lineItemList.appendChild(copy)

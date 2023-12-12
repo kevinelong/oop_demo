@@ -10,7 +10,8 @@ class Store {
         });
     }
     add(i, quantity = 1) {
-        this.cart.itemList.push(new LineItem(this.productList[i], quantity))
+        this.cart.itemList.push(new LineItem(this.productList[i], quantity));
+        return this.cart.itemList.length - 1;
     }
 }
 
