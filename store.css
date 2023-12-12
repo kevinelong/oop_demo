@@ -1,0 +1,17 @@
+body{
+    margin:0;
+    padding:0;
+    background-color: #789;
+}
+.card.product{
+    display: inline-flex;
+    border: 1px solid black;
+    margin: 1em 0 0 1em;
+    padding: 1em;
+    width: 28vw;
+    box-shadow: 0.5em 0.5em 1em 1em rgba(0,0,0,0.2);
+}
+
+.card.product.template{
+    display: none;
+}

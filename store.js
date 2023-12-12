@@ -1,49 +1,50 @@
-class Store{
+class Store {
     //current order is a cart
-    constructor(productList){
+    constructor(productList) {
         this.productList = productList;
         this.cart = new Order();
     }
-    show(){
-        this.productList.forEach((p, i)=> {
+    show() {
+        this.productList.forEach((p, i) => {
             console.log(i, p.show())
         });
     }
-    add(i, quantity=1){
+    add(i, quantity = 1) {
         this.cart.itemList.push(new LineItem(this.productList[i], quantity))
     }
 }
 
-class Product{
-    constructor(name, price = 0, attributes = {}){
+class Product {
+    constructor(name, price = 0, image = "", attributes = {}) {
         this.name = name;
         this.price = price;
+        this.image = image;
         this.atrributes = attributes;
     }
-    show(){
+    show() {
         return `NAME: ${this.name} PRICE: ${this.price}`
     }
 }
 
-class Customer{
+class Customer {
     //...
 }
 
-class LineItem{
-    constructor(product, quantity){
+class LineItem {
+    constructor(product, quantity) {
         this.product = product;
         this.quantity = quantity;
     }
 }
 
-class Order{ //CART IS AN INCOMPLETE ORDER
-    constructor(){
+class Order { //CART IS AN INCOMPLETE ORDER
+    constructor() {
         this.customer = new Customer();
         this.itemList = [];
     }
-    show(){
+    show() {
         let total = 0;
-        this.itemList.forEach(item=>{
+        this.itemList.forEach(item => {
             let ext = item.quantity * item.product.price;
             total += ext;
             console.log(item.quantity, item.product.show(), ext)
@@ -53,14 +54,14 @@ class Order{ //CART IS AN INCOMPLETE ORDER
 }
 
 //TEST
-const s = new Store([
-    new Product("paper", 5.00),
-    new Product("pencil", 1.00),
+const store = new Store([
+    new Product("paper", 5.00, "paper.webp"),
+    new Product("pencil", 1.00, "pencil.webp"),
 ]);
 
-s.show()
+store.show()
 
-s.add(0,2)
-s.add(1, 12)
+store.add(0, 2)
+store.add(1, 12)
 
-s.cart.show();
+store.cart.show();
