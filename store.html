@@ -45,7 +45,9 @@
         const tr = buttonElement.closest("tr");
         const index = tr.dataset.id;
         const item = store.cart.itemList[index];
+        
         store.cart.itemList.splice(index, 1) //remove from list
+
         //UPDATE INDEXES AFTER THE REOVED ITEM
         let reached = false
         const parent = tr.parentElement;

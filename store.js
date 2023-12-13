@@ -73,9 +73,9 @@ const store = new Store([
     new Product("paperclip", 0.50, "paperclip.webp"),
 ]);
 
-store.show()
+// store.show()
 
-store.add(0, 2)
-store.add(1, 12)
+// // store.add(0, 2)
+// // store.add(1, 12)
 
-store.cart.show();
+// store.cart.show();
