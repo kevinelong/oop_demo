@@ -2,6 +2,7 @@
     <select id="userList">
         <option value="">Select a User</option>
     </select>
+    <input type="color" id="colorInput">
 </body>
 <script>
 
@@ -10,10 +11,30 @@ fetch("http://localhost:3100/api/userdata")
 .then(data =>
     data.forEach(item => userList.innerHTML += 
     `<option value="${
-        encodeURIComponent(item.jsontext)
+        item.jsontext
     }">${
         item.username
     }</option>`)
 )
+
+userList.addEventListener("change", e =>{
+    let jsonText = decodeURIComponent(userList.value);
+    let data = JSON.parse(jsonText);
+    console.log(data);
+    colorInput.value = data.color;
+})
+
+colorInput.addEventListener("change", e=>{
+    fetch("http://localhost:3100/api/userdata", {
+        method: "POST",
+        headers: {
+            "Content-type":"application/json"
+        }, 
+        body: JSON.stringify({
+            username: userList.selectedOptions[0].innerHTML,
+            color: colorInput.value
+        })
+    }).then(res=> window.location.reload());
+})
 
 </script>
