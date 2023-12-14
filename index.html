@@ -1,0 +1,19 @@
+<body>
+    <select id="userList">
+        <option value="">Select a User</option>
+    </select>
+</body>
+<script>
+
+fetch("http://localhost:3100/api/userdata")
+.then(r => r.json())
+.then(data =>
+    data.forEach(item => userList.innerHTML += 
+    `<option value="${
+        encodeURIComponent(item.jsontext)
+    }">${
+        item.username
+    }</option>`)
+)
+
+</script>
