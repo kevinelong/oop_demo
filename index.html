@@ -7,15 +7,16 @@
     <input type="color" id="colorInput">
 </body>
 <script>
+    const host = "http://35.165.18.146:3100"
     add.addEventListener("click", e => {
-        fetch("http://localhost:3100/api/user", {
+        fetch(host+"/api/user", {
             method: "POST", headers: { "Content-type": "application/json" },
             body: JSON.stringify({ username: newUser.value })
         }).then(res => window.location.reload());
     })
 
     function loadUsers(){
-           fetch("http://localhost:3100/api/userdata")
+           fetch(host+"/api/userdata")
         .then(r => r.json())
         .then(data =>
             data.forEach(item => userList.innerHTML +=
@@ -34,7 +35,7 @@
     })
 
     colorInput.addEventListener("change", e => {
-        fetch("http://localhost:3100/api/userdata", {
+        fetch(host+"/api/userdata", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
