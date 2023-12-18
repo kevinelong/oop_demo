@@ -1,0 +1,66 @@
+<body>
+    <div id="target"></div>
+    <form>
+        <label><input type="radio" name="station" value="101.9FM">101.9FM</label><br>
+        <label><input type="radio" name="station" value="106.7FM">106.7FM</label><br>
+        <label><input type="radio" name="station" value="107.1FM">107.1FM</label><br>
+    </form>
+</body>
+<script>
+
+    // HOW TO GET ALL ELEMENTS WITH A SPECIFIC TAG NAME
+    all_divs = document.getElementsByTagName("div");
+    all_divs2 = document.querySelectorAll("div");
+
+    //CREATE AND APPEND CONTENT WITH JS OBJECTS (not text/innerHTML)
+    // OUR PAGE HAS THIS HTML: <div id="target"></div>
+    //Add a link to the div with the id target?
+    const a = document.createElement("a");
+    a.href = "http://disney.com"
+    textNode = document.createTextNode("GO PLAY")
+    a.appendChild(textNode)
+    div = document.getElementById("target")
+    div.appendChild(a)
+
+//get all radios with specific name
+all_radios_with_name = document.querySelectorAll("input[name=station]")
+console.log(all_radios_with_name.length)
+
+//whats the diffenence between these three selectors?
+a = document.querySelectorAll("cool") //TAG
+b = document.querySelectorAll(".cool")//CLASS
+c = document.querySelectorAll("#cool")//ID
+
+d = document.querySelectorAll("div.cool")// DIV TAG WITH CLASS OF COOL
+
+e = document.querySelectorAll("div[id]")// DIV TAG that has a id attribute
+
+// AJAX - Asynchronous JavaScript and XML (OLD XMLHTTPRequest()) NOW JSON
+fetch("/api/endpoint", options, e => console.log(e))
+
+//URL - Universal Resource Locator e.g. /products/
+//URI - Universal Resource Identier e.g. /api/products/123
+
+// REST - Representational State Transfer
+// API - APPLICATION PROGRAM INTERFACE
+
+// HTTP VERBS -> CRUD (CREATE, READ, UPDATE, DELETE)
+// GET -> READ (NO BODY)
+// POST -> CREATE (NEEDS BODY)
+// PUT -> UPDATE (NEEDS BODY)
+// DELETE -> DELETE (NO BODY)
+
+// HTTP RESPONSE CODES
+// 200 - SUCCESS
+// 404 - NOT FOUND
+// 500 - SERVER ERROR (PROGRAMMER ERROR)
+
+// QUERY PARAMETERS EXAMPLE
+// http://example.com/api/endpoint?a=1&b=2&c=3
+
+// localStorage - Stores data localy similar to an object literat
+// sessionStorage - same but only until the browser
+
+// GIT COMMAND LINE!
+
+</script>
